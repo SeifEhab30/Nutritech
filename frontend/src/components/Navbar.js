@@ -107,7 +107,7 @@ const Navbar = () => {
                     )}
                 </li>
 
-                
+
 
                 {/* ---- Account ---- */}
                 <li className="nav-section">Account</li>

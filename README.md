@@ -6,6 +6,8 @@ It combines food **image recognition** (YOLOv8), an **AI nutrition chatbot**
 **macro calculation**, **food search**, and a **daily/weekly nutrition tracker** —
 with **Free / Premium** account tiers.
 
+> 🚀 **Just want to run it?** See **[SETUP.md](SETUP.md)** for the full step-by-step guide.
+
 ---
 
 ## ✨ Features
