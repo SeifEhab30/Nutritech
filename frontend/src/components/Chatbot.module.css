@@ -1,0 +1,239 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+.chatbotPage {
+    padding: 2rem;
+    /*background-color: #F9FAFB;*/
+    font-family: 'Poppins', sans-serif;
+    /* background-image: url("https://www.toptal.com/designers/subtlepatterns/uploads/light-grey-terrazzo.png"); */
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid #E5E7EB;
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+}
+
+.header {
+    text-align: center;
+    padding: 1.25rem;
+    border-bottom: 1px solid #E5E7EB;
+}
+
+.title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+.chatContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.messages {
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+    background-color: #F9FAFB;
+}
+
+.message {
+    display: flex;
+    margin-bottom: 1.2rem;
+}
+
+.user {
+    justify-content: flex-end;
+}
+
+.assistant {
+    justify-content: flex-start;
+}
+
+.messageContent {
+    padding: 0.9rem 1.2rem;
+    border-radius: 16px;
+    max-width: 75%;
+    color: #111827;
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+.user .messageContent {
+    background-color: #0F5132;
+    color: white;
+    border-bottom-right-radius: 6px;
+}
+
+.assistant .messageContent {
+    background-color: #E5E7EB;
+    border: 1px solid #E5E7EB;
+    color: #111827;
+    border-bottom-left-radius: 6px;
+}
+
+/* ================= INPUT AREA ================= */
+
+.inputArea {
+    border-top: 1px solid #E5E7EB;
+    padding: 0.75rem 1rem;
+    background-color: #ffffff;
+}
+
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.textarea {
+    flex: 1;
+    padding: 0.8rem;
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-family: 'Poppins', sans-serif;
+    resize: none;
+    min-height: 40px;
+    max-height: 150px;
+    background-color: #F9FAFB;
+    color: #111827;
+}
+
+.sendBtn {
+    align-self: flex-end;
+    padding: 0.6rem 1.2rem;
+    background-color: #0F5132;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s ease;
+}
+
+.sendBtn:hover {
+    background-color: #34D399;
+}
+
+.sendBtn:disabled {
+    background-color: #E5E7EB;
+    color: #9ca3af;
+    cursor: not-allowed;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1000px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 900px;
+    }
+}
+
+@media (max-width: 768px) {
+    .chatbotPage {
+        padding: 0;
+    }
+
+    .container {
+        margin: 0;
+        border-radius: 0;
+        height: 100vh;
+        box-shadow: none;
+    }
+
+    .header {
+        padding: 1rem;
+    }
+
+    .title {
+        font-size: 1.4rem;
+    }
+
+    .messages {
+        padding: 1rem;
+    }
+
+    .messageContent {
+        font-size: 0.9rem;
+    }
+
+    .inputArea {
+        padding: 0.6rem;
+    }
+
+    .textarea {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 1.2rem;
+    }
+
+    .messages {
+        padding: 0.5rem;
+    }
+
+    .messageContent {
+        padding: 0.7rem 1rem;
+    }
+
+    .inputArea {
+        padding: 0.5rem;
+    }
+
+    .textarea {
+        padding: 0.6rem;
+    }
+
+    .sendBtn {
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* ===== GLASS THEME (TEST) — delete this whole block to undo ===== */
+.container {
+    background: rgba(255, 255, 255, 0.72);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.messages {
+    background-color: transparent;
+}
+
+.inputArea {
+    background-color: rgba(255, 255, 255, 0.35);
+}
+
+.textarea {
+    background-color: rgba(255, 255, 255, 0.85);
+}
+
+.assistant .messageContent {
+    background-color: rgba(255, 255, 255, 0.78);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+/* ===== END GLASS THEME (TEST) ===== */

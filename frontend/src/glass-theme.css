@@ -1,0 +1,26 @@
+/* =============================================================
+   GLASS THEME (TEST) — frosted-glass cards site-wide over the
+   green app background.
+   TO UNDO EVERYTHING: delete this file AND remove its import
+   line from src/index.js (and the marked block in
+   components/Chatbot.module.css).
+   ============================================================= */
+
+/* Make page wrappers that paint a solid color transparent so the
+   global green background shows behind the glass cards. */
+.meal-planner-page {
+    background: transparent !important;
+}
+
+/* Main content cards -> frosted glass. Existing dark text stays readable. */
+.macros-calculator,
+.recognition-container,
+.meal-planner-container,
+.profile-box,
+.fs-box {
+    background: rgba(255, 255, 255, 0.72) !important;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.45) !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25) !important;
+}

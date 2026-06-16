@@ -1,0 +1,189 @@
+.food-search-page {
+  min-height: 82vh;
+  padding: 2.5rem 1rem;
+}
+
+.food-search-container {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.fs-box {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  padding: 2rem 2.5rem;
+}
+
+.fs-header {
+  text-align: center;
+  color: #111827;
+  margin-bottom: 1.75rem;
+}
+
+.fs-header h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 0 0.4rem;
+  color: #111827;
+}
+
+.fs-header p {
+  color: #6b7280;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.fs-form {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.fs-form input {
+  flex: 1;
+  padding: 0.85rem 1rem;
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  color: #111827;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.fs-form input::placeholder {
+  color: #6B7280;
+}
+
+.fs-form input:focus {
+  outline: none;
+  border-color: #0F5132;
+  background: #fff;
+}
+
+.fs-form button {
+  padding: 0.85rem 1.6rem;
+  background: linear-gradient(135deg, #0F5132 0%, #34D399 100%);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.fs-form button:hover {
+  transform: translateY(-2px);
+}
+
+.fs-form button:disabled {
+  opacity: 0.6;
+  cursor: default;
+  transform: none;
+}
+
+.fs-error,
+.fs-empty {
+  text-align: center;
+  color: #374151;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+}
+
+.fs-error {
+  color: #721c24;
+  background: #f8d7da;
+  border-color: #f5c2c7;
+}
+
+.fs-notice {
+  text-align: center;
+  color: #92400e;
+  background: #fef3c7;
+  border: 1px solid #fde68a;
+  border-radius: 12px;
+  padding: 0.7rem 1rem;
+  font-size: 0.88rem;
+  margin-bottom: 1rem;
+}
+
+.fs-results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.fs-card {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 1.1rem 1.3rem;
+}
+
+.fs-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 0.6rem;
+}
+
+.fs-name {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #111827;
+}
+
+.fs-badge {
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 50px;
+  text-transform: uppercase;
+}
+
+.fs-badge.usda {
+  background: rgba(37, 99, 235, 0.12);
+  color: #2563eb;
+}
+
+.fs-badge.curated {
+  background: rgba(15, 81, 50, 0.12);
+  color: #0F5132;
+}
+
+.fs-macros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 1rem;
+  font-size: 0.9rem;
+  color: #374151;
+  padding: 0.35rem 0;
+  border-top: 1px dashed #F3F4F6;
+}
+
+.fs-macros-label {
+  min-width: 130px;
+  color: #6B7280;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+@media (max-width: 560px) {
+  .fs-form {
+    flex-direction: column;
+  }
+
+  .fs-macros-label {
+    min-width: 100%;
+  }
+}

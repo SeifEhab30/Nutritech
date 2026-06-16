@@ -1,0 +1,75 @@
+# =============================================================
+# Goal: track only what's needed to RUN the project (+ the DB).
+# Everything dev-only, test, scratch, build-artifact, or secret
+# is ignored below. nutritech.db is intentionally NOT ignored.
+# =============================================================
+
+# ===== Secrets (required to run, but never committed) =====
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# ===== Claude / assistant =====
+CLAUDE.md
+.claude/
+
+# ===== Dependencies / virtual envs / builds =====
+node_modules/
+/frontend/build/
+venv/
+.venv/
+env/
+ENV/
+
+# ===== Python caches =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+*.egg-info/
+
+# ===== Logs / temp =====
+*.log
+*.tmp
+*.bak
+
+# ===== Editors / IDE / OS =====
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== Dev / build / migration scripts (not needed at runtime) =====
+Backend/app/build_index.py
+Backend/migrate_profile.py
+Backend/migrate_saved_plan.py
+Backend/populate_food_images.py
+Backend/app/check_db.py
+
+# ===== Test / scratch files =====
+Backend/selftest_planner.py
+Backend/app/Detectortesting.py
+Backend/minor_tests/
+frontend/src/App.test.js
+frontend/src/setupTests.js
+
+# ===== Build-only data inputs/outputs (runtime uses the parquet index) =====
+Backend/data/build/
+Backend/data/chatbot_data.csv
+Backend/data/merged_final_df.csv
+
+# ===== Stray / duplicate assets (not referenced by the app) =====
+/app/
+bamia w roz.jpeg
+frontend/src/fruits green fate7.jpg
+frontend/src/fruits white and black.jpg
+Backend/Screenshot 2026-03-01 042650.png

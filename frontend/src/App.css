@@ -1,0 +1,36 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  /*background-color: #F9FAFB;*/
+  font-family: 'Poppins', sans-serif;
+  /* divided by the sitewide 0.85 zoom (see index.css) so it still fills the viewport */
+  min-height: calc(100vh / 0.85);
+  background:
+        linear-gradient(
+            rgba(10, 80, 50, 0.85),
+            rgba(10, 80, 50, 0.65)
+        ),
+        url("https://images.openai.com/static-rsc-4/FSnKpcGe6OEdga0Ic_z2_lI5ujzp-bBn-58O6HxlGGOYdnMY8l_MEbaZbNeSVMYxLcxWu05Z4aq9xJS8NfThd2iAkESnzzIElV-uybegXy67BjLkA5koVNX2Jl_ffnIAJh27RERhrQehuFQU7uMAbMNBK9BL-BLnx5Qk5axYO_DLJGr718VvL6eVAYOd4esX?purpose=inline");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+}
+
+.container {
+  flex: 1 0 auto;
+  padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0.5rem;
+  }
+}

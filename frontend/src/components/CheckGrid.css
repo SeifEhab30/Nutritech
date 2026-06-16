@@ -1,0 +1,77 @@
+.check-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  margin: 0;
+  padding: 0.7rem 0.9rem;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+}
+
+.check-item:hover {
+  border-color: #0f5132;
+}
+
+.check-box {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #9ca3af;
+  border-radius: 6px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: transparent;
+}
+
+.check-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: white;
+}
+
+/* selected = filled */
+.check-item.checked {
+  background: #0f5132;
+  border-color: #0f5132;
+}
+
+.check-item.checked .check-label {
+  color: #fff;
+}
+
+.check-item.checked .check-box {
+  background: #fff;
+  border-color: #fff;
+  color: #0f5132;
+}
+
+/* allergen variant = red fill when selected */
+.check-item.allergen.checked {
+  background: #b91c1c;
+  border-color: #b91c1c;
+}
+
+.check-item.allergen.checked .check-box {
+  color: #b91c1c;
+}
+
+@media (max-width: 600px) {
+  .check-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
