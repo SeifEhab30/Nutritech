@@ -73,3 +73,13 @@ bamia w roz.jpeg
 frontend/src/fruits green fate7.jpg
 frontend/src/fruits white and black.jpg
 Backend/Screenshot 2026-03-01 042650.png
+
+# ===== Thesis / documentation WIP + its build scripts (not part of the app) =====
+docs/*.docx
+docs/build_*.py
+docs/_calorieme_dump.txt
+docs/__pycache__/
+docs/Documents/
+
+# ===== Detector weights backup left by the exp5->exp6 swap =====
+Backend/app/AI_Models/best.exp5-backup.pt
