@@ -24,6 +24,14 @@ const ImageRecognition = () => {
         };
     }, [previewUrl]);
 
+    // Attach the camera stream once the <video> element is mounted.
+    useEffect(() => {
+        if (showCamera && videoRef.current && streamRef.current) {
+            videoRef.current.srcObject = streamRef.current;
+            videoRef.current.play().catch(err => console.error("Video play failed:", err));
+        }
+    }, [showCamera]);
+
     const startCamera = async () => {
         // First, check if the browser supports media devices
         if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
@@ -33,14 +41,13 @@ const ImageRecognition = () => {
 
         try {
             console.log("Requesting camera access...");
-            const stream = await navigator.mediaDevices.getUserMedia({ 
-                video: { facingMode: 'environment' } 
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: 'environment' }
             });
             console.log("Camera access granted!", stream);
             streamRef.current = stream;
-            if (videoRef.current) {
-                videoRef.current.srcObject = stream;
-            }
+            // Render the <video> first; the stream is attached in the effect below
+            // once the element is actually mounted (videoRef is null until then).
             setShowCamera(true);
         } catch (err) {
             console.error("Error accessing camera:", err);
