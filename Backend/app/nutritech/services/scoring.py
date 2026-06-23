@@ -54,7 +54,12 @@ def apply_dislikes(
         for term in exp.get(token, [token]):
             term = str(term).strip().lower()
             if term:
-                mask &= ~name.str.contains(re.escape(term), na=False)
+                # Whole-word (+ optional plural) match so a token never matches
+                # an unrelated longer word: "egg" must not hit "eggplant",
+                # "pea" must not hit "peach"/"peanut", "nut" must not hit
+                # "butternut squash".
+                pat = r"\b" + re.escape(term) + r"(?:s|es)?\b"
+                mask &= ~name.str.contains(pat, na=False, regex=True)
     return df[mask].copy()
 
 

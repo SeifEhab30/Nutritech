@@ -171,10 +171,16 @@ def _pick(role: str, cands: pd.DataFrame, used: set, cluster_counts: dict,
         pool = cands[(cands["role"] == role) & (~cands["_name_l"].isin(used))]
     if pool.empty:
         return None
-    # variety: cap foods per K-Means cluster, relax if it empties the pool
-    capped = pool[pool["cluster"].map(lambda c: cluster_counts.get(int(c), 0) < cluster_cap)]
+    # variety: cap foods per K-Means cluster. If every cluster is already at the
+    # cap, don't fall back to the whole pool (that let one cluster dominate, e.g.
+    # 15 foods/cluster on big days) -- restrict to the least-used clusters so the
+    # day stays as spread out as the pool allows.
+    counts = pool["cluster"].map(lambda c: cluster_counts.get(int(c), 0))
+    capped = pool[counts < cluster_cap]
     if not capped.empty:
         pool = capped
+    else:
+        pool = pool[counts == counts.min()]
     # high-protein goals prefer hp mains
     if "high_protein" in fg and role == "main":
         hp = pool[pool["diet_tags"].str.contains("hp", na=False)]
@@ -293,26 +299,60 @@ def build_daily_plan(
     }
 
 
-def _normalize_day(meals: Dict[str, Any], target: float, cap_mult: float = 1.0) -> None:
-    total = sum(m["total_calories"] for m in meals.values())
-    if total <= 0:
-        return
-    ratio = target / total
-    if abs(1.0 - ratio) <= 0.02:
-        return
+def _scale_item(it: Dict[str, Any], new_g: float) -> None:
+    scale = new_g / it["grams"] if it["grams"] else 1.0
+    it["grams"] = round(new_g, 1)
+    it["calories"] = round(it["calories"] * scale, 1)
+    for k in MACRO_KEYS:
+        it[k] = round(it[k] * scale, 1)
+
+
+def _refresh_totals(meals: Dict[str, Any]) -> None:
     for meal in meals.values():
-        for key in ("main", "side", "optional"):
-            it = meal.get(key)
-            if not isinstance(it, dict) or it.get("grams", 0) <= 0:
-                continue
-            # keep the normalized grams within the realistic per-role ceiling
-            cap = _role_cap(it.get("role")) * cap_mult
-            new_g = min(it["grams"] * ratio, cap)
-            scale = new_g / it["grams"] if it["grams"] else 1.0
-            it["grams"] = round(new_g, 1)
-            it["calories"] = round(it["calories"] * scale, 1)
-            for k in MACRO_KEYS:
-                it[k] = round(it[k] * scale, 1)
         meal["total_calories"] = round(
             sum(meal[k]["calories"] for k in ("main", "side", "optional")
                 if isinstance(meal.get(k), dict)), 1)
+
+
+def _normalize_day(meals: Dict[str, Any], target: float, cap_mult: float = 1.0) -> None:
+    """Land the whole-day total on target. Proportional scaling alone leaves a
+    residual whenever some meals hit their per-role gram caps (e.g. a light
+    breakfast on a 2-meal keto day): the spare calories can't be recovered from
+    a capped meal, so the day undershoots. This redistributes the remaining gap
+    onto items still below their cap, iterating until the gap closes or every
+    movable item is maxed out."""
+    items = [it for meal in meals.values()
+             for key in ("main", "side", "optional")
+             if isinstance((it := meal.get(key)), dict) and it.get("grams", 0) > 0]
+    if not items:
+        return
+
+    for _ in range(12):
+        total = sum(it["calories"] for it in items)
+        if total <= 0:
+            return
+        gap = target - total                       # +ve: undershoot, -ve: overshoot
+        if abs(gap) <= 0.02 * target:
+            break
+        # kcal/gram for each item; only items that can still move in the needed
+        # direction participate (under cap when filling up, above floor when down)
+        movers = []
+        for it in items:
+            kpg = it["calories"] / it["grams"] if it["grams"] else 0.0
+            if kpg <= 0:
+                continue
+            cap = _role_cap(it.get("role")) * cap_mult
+            if gap > 0 and it["grams"] < cap - 1e-6:
+                movers.append((it, kpg, cap, 1.0))
+            elif gap < 0 and it["grams"] > 1.0:
+                movers.append((it, kpg, cap, 1.0))
+        if not movers:
+            break
+        denom = sum(kpg for _, kpg, _, _ in movers) or 1.0
+        for it, kpg, cap, _ in movers:
+            dcal = gap * (kpg / denom)              # this item's share of the gap
+            new_g = it["grams"] + dcal / kpg
+            new_g = max(1.0, min(cap, new_g))
+            _scale_item(it, new_g)
+
+    _refresh_totals(meals)
