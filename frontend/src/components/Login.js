@@ -16,7 +16,7 @@ const Login = () => {
         try {
             await login(email, password);
             window.dispatchEvent(new Event('login'));
-            navigate('/');
+            navigate('/profile');
         } catch (error) {
             setError(error.message);
         }
