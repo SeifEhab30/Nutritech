@@ -1,11 +1,11 @@
 # =============================================================
 # Goal: track only what's needed to RUN the project (+ the DB).
 # Everything dev-only, test, scratch, build-artifact, or secret
-# is ignored below. nutritech.db is intentionally NOT ignored.
+# is ignored below. nutritech.db is intentionally NOT ignored
 # =============================================================
 
 # ===== Secrets (required to run, but never committed) =====
-.env
+Backend/.env
 .env.*
 !.env.example
 !.env.*.example
